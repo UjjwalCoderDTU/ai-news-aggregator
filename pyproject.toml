@@ -1,0 +1,21 @@
+[project]
+name = "ai-news-aggreator"
+version = "0.1.0"
+description = "AI News Aggregator - scrapes and stores AI news from multiple sources"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "docling>=2.84.0",
+    "feedparser>=6.0.12",
+    "langchain>=1.2.15",
+    "langchain-openai>=1.1.12",
+    "numpy>=2.4.4",
+    "pandas>=3.0.2",
+    "psycopg2-binary>=2.9.0",
+    "pydantic>=2.12.5",
+    "python-dotenv>=1.0.0",
+    "requests>=2.33.1",
+    "sqlalchemy>=2.0.49",
+    "youtube-transcript-api>=1.2.4",
+    "yt-dlp>=2025.1.26",
+]
