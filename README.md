@@ -39,7 +39,6 @@ AI NEWS AGGREATOR/
 │   └── runner.py            # Orchestrates all scrapers
 ├── docs/                    # Documentation
 │   └── DATABASE_SETUP.md    # PostgreSQL setup guide
-├── .env                     # Environment (DO NOT COMMIT)
 ├── .env.example             # Template
 ├── main.py                  # Entry point
 └── pyproject.toml           # Dependencies
