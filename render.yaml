@@ -6,16 +6,16 @@ services:
 
     buildCommand: |
       pip install uv
-      uv sync --frozen
+      uv sync --frozen --no-cache
 
-    startCommand: uv run python main.py all --hours 24
+    startCommand: uv run python main.py all --hours 24 || echo "Job failed"
 
-    # 12:00 AM IST = 18:30 UTC (previous day)
-    # Cron format: minute hour day month day-of-week
     schedule: "30 18 * * *"
 
-    # Environment variables - configure these in Render dashboard
     envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+
       - key: OPENAI_API_KEY
         sync: false
       - key: DB_HOST
@@ -28,6 +28,7 @@ services:
         sync: false
       - key: DB_PORT
         value: "5432"
+
       - key: GMAIL_SENDER_EMAIL
         sync: false
       - key: GMAIL_APP_PASSWORD
@@ -37,7 +38,6 @@ services:
       - key: EMAIL_HOURS
         value: "24"
 
-    # Optional: Set up notifications
     notifications:
       enabled: true
-      type: email  # Receive email on failure
+      type: email
