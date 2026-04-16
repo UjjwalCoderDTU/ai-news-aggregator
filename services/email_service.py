@@ -1,9 +1,3 @@
-"""
-Email Service - AI News Digest
-
-Sends formatted email with latest AI news from the database.
-"""
-
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -28,7 +22,6 @@ def get_latest_news(hours: int = 24) -> list[NewsItem]:
 
 def format_email_body(news_items: list[NewsItem]) -> str:
     """Format news items into plain text email body."""
-
     # Group by source
     youtube_items = [n for n in news_items if n.source == "youtube"]
     openai_items = [n for n in news_items if n.source == "openai"]
@@ -87,22 +80,23 @@ def _format_news_item_text(item: NewsItem) -> str:
     published = item.published_at.strftime("%B %d, %Y at %I:%M %p") if item.published_at else "Unknown date"
 
     text = f"""
-* {item.title}
-  Link: {item.url} | Published: {published}
-"""
+    * {item.title}
+    Link: {item.url}
+    Source: {item.source.capitalize()} | Published: {published}
+    """
 
-    # Add summary if available
     if item.summary:
-        summary_text = item.summary
         text += f"""
-  Summary: {summary_text}
-"""
+        Summary: {item.summary}
+        """
 
-    return text
-
+    return text  
 
 def send_email(sender_email: str,sender_password: str,recipient_email: str,subject: str,text_body: str) -> bool:
     """Send email via Gmail SMTP."""
+    import os
+    print("ENV EMAIL:", os.getenv("GMAIL_SENDER_EMAIL"))
+    print("ENV PASS:", os.getenv("GMAIL_APP_PASSWORD"))
     try:
         # Create message
         msg = MIMEMultipart()
@@ -143,7 +137,7 @@ def send_daily_digest(sender_email: str,sender_password: str,recipient_email: st
     news_items = get_latest_news(hours=hours)
 
     if not news_items:
-        print("ℹ️ No new news items found in the specified time range.")
+        print("No new news items found in the specified time range.")
         return {
             "success": True,
             "message": "No news items to send"

@@ -1,3 +1,7 @@
+from dotenv import load_dotenv
+import os
+
+load_dotenv(dotenv_path=os.path.join(os.getcwd(), ".env"), override=True)
 import argparse
 import sys
 import os
@@ -47,6 +51,10 @@ def send_email_digest(hours: int = None):
         hours = int(os.getenv("EMAIL_HOURS", "24"))
 
 
+    # This function:
+    # Fetches news from DB (last X hours)
+    # Formats it nicely (subject + content)
+    # Sends email via Gmail SMTP
     send_daily_digest(
         sender_email=sender_email,
         sender_password=sender_password,
@@ -103,8 +111,7 @@ if __name__ == "__main__":
     scrape_parser.add_argument(
         "--hours",
         type=int,
-        default=24,
-        help="Fetch content from last N hours"
+        default=24
     )
 
     # Email only command
@@ -112,8 +119,7 @@ if __name__ == "__main__":
     email_parser.add_argument(
         "--hours",
         type=int,
-        default=None,
-        help="Include news from last N hours (default: from .env EMAIL_HOURS or 24)"
+        default=None
     )
 
     # Full workflow: scrape + email
@@ -121,8 +127,7 @@ if __name__ == "__main__":
     all_parser.add_argument(
         "--hours",
         type=int,
-        default=24,
-        help="Fetch and email content from last N hours (default: 24)"
+        default=24
     )
 
     args = parser.parse_args()
