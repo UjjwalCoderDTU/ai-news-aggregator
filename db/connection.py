@@ -11,18 +11,16 @@ DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_NAME = os.getenv("DB_NAME")
 DB_PORT = os.getenv("DB_PORT")
 
-
-# Fix password issue (@ → %40)
-from urllib.parse import quote_plus
-encoded_password = quote_plus(DB_PASSWORD)
+# Used for PostgreSql locally
+# # Fix password issue (@ → %40)
+# from urllib.parse import quote_plus
+# encoded_password = quote_plus(DB_PASSWORD)
 
 # Create engine
-DATABASE_URL = f"postgresql://{DB_USER}:{encoded_password}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
+DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
 
 
-engine = create_engine(
-    DATABASE_URL
-)
+engine = create_engine(DATABASE_URL ,pool_pre_ping=True)
 
 SessionLocal = sessionmaker(bind=engine)
 
