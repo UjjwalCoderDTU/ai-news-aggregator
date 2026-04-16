@@ -2,7 +2,7 @@
 
 Scrapes news articles and YouTube videos from AI company sources (OpenAI, Anthropic, YouTube) with LLM-powered summarization, PostgreSQL storage, and automated email digest delivery.
 
-## Quick Start
+## Quick Start (Local)
 
 ```bash
 # Install dependencies
@@ -21,6 +21,12 @@ uv run python main.py email --hours 24
 # Complete workflow: scrape + send email (recommended)
 uv run python main.py all --hours 24
 ```
+
+## Deploy to Render (Automated Daily)
+
+Deploy to Render for automatic daily scraping and email delivery at **12:00 AM IST**.
+
+See [DEPLOY.md](./DEPLOY.md) for complete instructions.
 
 ## Project Structure
 
