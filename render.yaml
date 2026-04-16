@@ -37,7 +37,3 @@ services:
         sync: false
       - key: EMAIL_HOURS
         value: "24"
-
-    notifications:
-      enabled: true
-      type: email
